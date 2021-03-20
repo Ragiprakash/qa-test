@@ -12,7 +12,6 @@ class generic_Page{
         element.waitForDisplayed(timeout, undefined, `Element '${element.selector}' is not exist after ${timeout} milliseconds`);
     }
 
-
 }
 
 module.exports = new generic_Page();

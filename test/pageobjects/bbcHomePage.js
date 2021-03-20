@@ -6,11 +6,11 @@ class bbcHomePage {
     get tabElements() {return (("//a[contains(.,'%s')]"));}
     get searchLabel () { return $("[id*='input-label']");}
     get locationTitle() {return $("[id*='wr-location-name-id']");}
-    get weatherHighValues() {return ("[class='wr-day-temperature__high'] [class='wr-value--temperature--c']");}
-    get weatherLowValues() {return ("[class='wr-day-temperature__low'] [class='wr-value--temperature--c']");}
-    get weatherDays() {return ("[class*='wr-day-carousel'] li a[id^='daylink-%s']");}
-    get weatherDescription() {return ("[class*='day__details__weather-type-description']");}
-    get dayAndDate() {return ("[class*='wr-day__title']");}
+    get weatherDays() {return ("[class*='wr-day-carousel'] li a[id='daylink-%s']");}
+    get weatherHighValues() {return ((`${this.weatherDays} [class='wr-day-temperature__high'] [class='wr-value--temperature--c']`));}
+    get weatherLowValues() {return ((`${this.weatherDays} [class='wr-day-temperature__low'] [class='wr-value--temperature--c']`));}
+    get weatherDescription() {return ((`${this.weatherDays} [class*='day__details__weather-type-description']`));}
+    get dayAndDate() {return ((`${this.weatherDays} [class*='wr-day__title']`));}
     get cookies() {return $("[id='bbccookies-continue-button']");}
 
 
@@ -55,12 +55,11 @@ class bbcHomePage {
 
     async getWeatherDetails(){
         for(let i=1; i < 4; i++) {
-            let tab =  await $(this.weatherDays.replace('%s',i.toString()));
-            let highTemp = await tab.$(this.weatherHighValues).getText();
-            let lowTemp = await tab.$(this.weatherLowValues).getText();
-            let description = await tab.$(this.weatherDescription).getText();
-            let dayAndDate = await tab.$(this.dayAndDate).getAttribute('aria-label');
-            console.log("day " +i+ "-" + dayAndDate + "," +description+ "," + lowTemp +"," + highTemp);
+            let highTemp = await $(this.weatherHighValues.replace('%s',i.toString()));
+            let lowTemp = await $(this.weatherLowValues.replace('%s',i.toString()));
+            let description = await $(this.weatherDescription.replace('%s',i.toString()));
+            let dayAndDate = await $(this.dayAndDate.replace('%s',i.toString()));
+            console.log("Day " +i+ "-" + await dayAndDate.getAttribute('aria-label') + await description.getText()+ ",Min Temp-" + await lowTemp.getText() +",Max Temp-" + await highTemp.getText());
         }
 
     }

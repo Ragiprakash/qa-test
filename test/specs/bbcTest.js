@@ -32,10 +32,8 @@ describe("Test bbc weather", async () => {
         await homePage.getWeatherDetails();
     })
 
-
-
-
-
-
+    it('should close browser', async () => {
+        await browser.closeWindow();
+    })
 
 })
