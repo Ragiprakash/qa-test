@@ -11,11 +11,19 @@ class bbcHomePage {
     get weatherDays() {return ("[class*='wr-day-carousel'] li a[id^='daylink-%s']");}
     get weatherDescription() {return ("[class*='day__details__weather-type-description']");}
     get dayAndDate() {return ("[class*='wr-day__title']");}
+    get cookies() {return $("[id='bbccookies-continue-button']");}
 
 
     async navigateToHomePage(){
         browser.url("/");
         return await this.getPageHeaderTitle();
+    }
+
+    async acceptCookies(){
+        let cookies = await this.cookies;
+        if(cookies.isDisplayed()){
+            cookies.click();
+        }
     }
 
     async  getPageHeaderTitle() {

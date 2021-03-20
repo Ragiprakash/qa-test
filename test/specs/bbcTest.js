@@ -8,8 +8,8 @@ describe("Test bbc weather", async () => {
         expect(actualTitle).to.equal('Welcome to the BBC', 'Header Title is not as expected');
     })
 
-    it('should get page cookies', async () => {
-        let allCookies = browser.getCookies();
+    it('should accept cookies', async () => {
+        await homePage.acceptCookies();
     })
 
     it('should click on weather tab and validate search box text', async () => {
